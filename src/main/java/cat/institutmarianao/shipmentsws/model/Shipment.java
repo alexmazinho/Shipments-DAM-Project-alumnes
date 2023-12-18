@@ -3,6 +3,7 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Entity;
 import org.hibernate.annotations.Formula;
 
 import jakarta.persistence.EnumType;
@@ -19,6 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity(name = "Shipment")
 public class Shipment implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -3,9 +3,7 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "Action")
+@Entity
+@Table(name = "actions")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Action implements Serializable {
 
@@ -32,13 +31,20 @@ public abstract class Action implements Serializable {
 
 	/* Lombok */
 	@EqualsAndHashCode.Include
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
+	@Column(name = "type", nullable = false)
 	protected Type type;
 
+	@Column(name = "performer", nullable = false)
 	protected User performer;
 
+	@Column(name = "date", nullable = false)
 	protected Date date = new Date();
 
+	@Column(name = "shipment", nullable = false)
 	protected Shipment shipment;
 }

@@ -2,9 +2,7 @@ package cat.institutmarianao.shipmentsws.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "User")
+@Entity
+@Table(name = "User")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class User implements Serializable {
 
@@ -39,14 +38,30 @@ public abstract class User implements Serializable {
 
 	/* Lombok */
 	@EqualsAndHashCode.Include
+	@Id
+	@Column(name = "username", nullable = false)
 	protected String username;
 
+	@Column(name = "role", nullable = false)
 	protected Role role;
 
+	@Column(name = "password", nullable = false)
 	protected String password;
 
+	@Column(name = "full_name", nullable = false)
 	protected String fullName;
 
+	@Column(name = "extension")
 	protected Integer extension;
+
+	@Column(name = "office_id")
+	protected Office office;
+
+	@Column(name = "place")
+	protected String place;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
+	protected Company company;
 
 }

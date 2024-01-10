@@ -3,11 +3,9 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import org.hibernate.annotations.Formula;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +18,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "Shipment")
+@Entity
+@Table(name = "Shipment")
 public class Shipment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,22 +40,40 @@ public class Shipment implements Serializable {
 
 	/* Lombok */
 	@EqualsAndHashCode.Include
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "category", nullable = false)
 	private Category category;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sender_id")
 	private Address sender;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipient")
 	private Address recipient;
 
+	@Column(name = "weight")
 	private Float weight;
+
+	@Column(name = "height")
 	private Float height;
+
+	@Column(name = "width")
 	private Float width;
+
+	@Column(name = "length")
 	private Float length;
 
+	@Column(name = "express")
 	private Boolean express;
+
+	@Column(name = "fragile")
 	private Boolean fragile;
 
+	@Column(name = "note")
 	private String note;
 
 	private List<Action> tracking;

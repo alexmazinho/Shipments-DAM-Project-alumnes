@@ -18,8 +18,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "Shipment")
+@Entity(name = "Shipment")
+@Table(name = "shipments")
 public class Shipment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,6 +45,7 @@ public class Shipment implements Serializable {
 	private Long id;
 
 	@Column(name = "category", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Category category;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,7 +53,7 @@ public class Shipment implements Serializable {
 	private Address sender;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipient")
+	@JoinColumn(name = "recipient_id")
 	private Address recipient;
 
 	@Column(name = "weight")
@@ -76,6 +77,8 @@ public class Shipment implements Serializable {
 	@Column(name = "note")
 	private String note;
 
+	@OneToMany
+	@JoinTable(name = "actions", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "shipment_id"))
 	private List<Action> tracking;
 
 	/* JPA */

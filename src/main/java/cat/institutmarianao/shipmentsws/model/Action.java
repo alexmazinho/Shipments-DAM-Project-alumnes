@@ -12,8 +12,9 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "actions")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Action implements Serializable {
@@ -36,15 +37,29 @@ public abstract class Action implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
-	@Column(name = "type", nullable = false)
+	@Column(name = "type", nullable = false, insertable=false, updatable=false)
+	@Enumerated(EnumType.STRING)
 	protected Type type;
 
-	@Column(name = "performer", nullable = false)
+	//@Column(name = "performer_username", nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "performer_username")
 	protected User performer;
 
 	@Column(name = "date", nullable = false)
 	protected Date date = new Date();
 
-	@Column(name = "shipment", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "shipment_id", nullable = false)
 	protected Shipment shipment;
+
+	//@Column(name = "tracking_number")
+	//private Integer trackingNumber;
+
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "courier_username")
+	//private User courier;
+
+	//@Column(name = "priority")
+	//private Integer priority;
 }

@@ -14,9 +14,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "User")
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class User implements Serializable {
+public class User implements Serializable { // ABSTRACT?
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +43,8 @@ public abstract class User implements Serializable {
 	@Column(name = "username", nullable = false)
 	protected String username;
 
-	@Column(name = "role", nullable = false)
+	@Column(name = "role", nullable = false, insertable=false, updatable=false)
+	@Enumerated(EnumType.STRING)
 	protected Role role;
 
 	@Column(name = "password", nullable = false)
@@ -53,15 +55,4 @@ public abstract class User implements Serializable {
 
 	@Column(name = "extension")
 	protected Integer extension;
-
-	@Column(name = "office_id")
-	protected Office office;
-
-	@Column(name = "place")
-	protected String place;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_id")
-	protected Company company;
-
 }

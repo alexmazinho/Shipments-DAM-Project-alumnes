@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "company")
+@Table(name = "companies")
 public class Company implements Serializable {
 
 	private static final long serialVersionUID = 1L;

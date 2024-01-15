@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "Address")
+@Table(name = "addresses")
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;

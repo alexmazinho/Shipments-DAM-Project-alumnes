@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "office")
+@Table(name = "offices")
 public class Office implements Serializable {
 
 	private static final long serialVersionUID = 1L;

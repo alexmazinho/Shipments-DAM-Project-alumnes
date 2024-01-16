@@ -10,21 +10,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-/* Lombok */
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "companies")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Company implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	public static final int MAX_NAME = 100;
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
 	@Id
+	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

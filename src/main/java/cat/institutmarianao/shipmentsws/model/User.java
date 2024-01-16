@@ -12,16 +12,15 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public class User implements Serializable { // ABSTRACT?
-
 	private static final long serialVersionUID = 1L;
 
-	/* Values for role - MUST be constants (can not be enums) */
+	// Values for role - Must be final
 	public static final String RECEPTIONIST = "RECEPTIONIST";
 	public static final String LOGISTICS_MANAGER = "LOGISTICS_MANAGER";
 	public static final String COURIER = "COURIER";
@@ -37,14 +36,13 @@ public class User implements Serializable { // ABSTRACT?
 	public static final int MAX_FULL_NAME = 100;
 	public static final int MAX_EXTENSION = 9999;
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
 	@Id
+	@EqualsAndHashCode.Include
 	@Column(name = "username", nullable = false)
 	protected String username;
 
-	@Column(name = "role", nullable = false, insertable=false, updatable=false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "role", nullable = false, insertable=false, updatable=false)
 	protected Role role;
 
 	@Column(name = "password", nullable = false)

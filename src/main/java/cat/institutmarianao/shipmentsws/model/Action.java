@@ -13,53 +13,39 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "actions")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Action implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    // Values for type - Must be final
+    public static final String RECEPTION = "RECEPTION";
+    public static final String ASSIGNMENT = "ASSIGNMENT";
+    public static final String DELIVERY = "DELIVERY";
 
-	/* Values for type - MUST be constants */
-	public static final String RECEPTION = "RECEPTION";
-	public static final String ASSIGNMENT = "ASSIGNMENT";
-	public static final String DELIVERY = "DELIVERY";
+    public enum Type {
+        RECEPTION, ASSIGNMENT, DELIVERY
+    }
 
-	public enum Type {
-		RECEPTION, ASSIGNMENT, DELIVERY
-	}
+    @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, insertable = false, updatable = false)
+    protected Type type;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+    @JoinColumn(name = "performer_username")
+    @OneToOne(fetch = FetchType.LAZY)
+    protected User performer;
 
-	@Column(name = "type", nullable = false, insertable=false, updatable=false)
-	@Enumerated(EnumType.STRING)
-	protected Type type;
+    @Column(name = "date", nullable = false)
+    protected Date date = new Date();
 
-	//@Column(name = "performer_username", nullable = false)
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn(name = "performer_username")
-	protected User performer;
-
-	@Column(name = "date", nullable = false)
-	protected Date date = new Date();
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "shipment_id", nullable = false)
-	protected Shipment shipment;
-
-	//@Column(name = "tracking_number")
-	//private Integer trackingNumber;
-
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "courier_username")
-	//private User courier;
-
-	//@Column(name = "priority")
-	//private Integer priority;
+    @JoinColumn(name = "shipment_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    protected Shipment shipment;
 }

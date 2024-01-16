@@ -13,15 +13,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-/* Lombok */
 @Data
 @NoArgsConstructor
 @SuperBuilder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "Shipment")
+@Entity
 @Table(name = "shipments")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Shipment implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	public static final int MAX_DESCRIPTION = 500;
@@ -39,8 +37,8 @@ public class Shipment implements Serializable {
 	}
 
 	/* Lombok */
-	@EqualsAndHashCode.Include
 	@Id
+	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

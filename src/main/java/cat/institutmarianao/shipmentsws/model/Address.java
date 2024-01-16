@@ -8,47 +8,44 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-/* Lombok */
 @Data
-@NoArgsConstructor
 @SuperBuilder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "Address")
+@NoArgsConstructor
+@Entity
 @Table(name = "addresses")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Address implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+    @Column(name = "street", nullable = false)
+    private String street;
 
-	@Column(name = "street", nullable = false)
-	private String street;
+    @Column(name = "number")
+    private String number;
 
-	@Column(name = "number")
-	private String number;
+    @Column(name = "floor")
+    private String floor;
 
-	@Column(name = "floor")
-	private String floor;
+    @Column(name = "door")
+    private String door;
 
-	@Column(name = "door")
-	private String door;
+    @Column(name = "city", nullable = false)
+    private String city;
 
-	@Column(name = "city", nullable = false)
-	private String city;
+    @Column(name = "province")
+    private String province;
 
-	@Column(name = "province")
-	private String province;
+    @Column(name = "postal_code")
+    private String postalCode;
 
-	@Column(name = "postal_code")
-	private String postalCode;
-
-	@Column(name = "country", nullable = false)
-	private String country;
+    @Column(name = "country", nullable = false)
+    private String country;
 }

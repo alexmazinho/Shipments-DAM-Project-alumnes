@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-/* Lombok */
 @Data
 @NoArgsConstructor
 @SuperBuilder
@@ -17,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
-public class User implements Serializable { // ABSTRACT?
+public class User implements Serializable { // TODO: abstract?
 	private static final long serialVersionUID = 1L;
 
 	// Values for role - Must be final

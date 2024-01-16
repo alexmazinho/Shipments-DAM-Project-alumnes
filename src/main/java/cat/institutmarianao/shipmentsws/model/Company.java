@@ -1,6 +1,3 @@
-/**
- *
- */
 package cat.institutmarianao.shipmentsws.model;
 
 import java.io.Serializable;

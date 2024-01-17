@@ -34,6 +34,7 @@ public class CompanyController {
 	@GetMapping(value = "/find/all")
 	public List<Company> findAll() {
 		// TODO find all companies
+
 		return null;
 	}
 

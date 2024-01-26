@@ -43,5 +43,7 @@ public abstract class User implements Serializable {
 	protected String fullName;
 
 	protected Integer extension;
-
+	
+	
+	public abstract String getLocation();
 }

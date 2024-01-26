@@ -2,6 +2,8 @@ package cat.institutmarianao.shipmentsws.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,9 @@ public class Receptionist extends User implements Serializable {
 
 	private String place;
 
+	@JsonIgnore
+	@Override
+	public String getLocation() {
+		return this.office.getName()+" ("+this.place+")";
+	}
 }
